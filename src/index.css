@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css?family=Passion+One|Raleway&display=swap");
+body {
+  font-family: "Raleway", sans-serif;
+  font-size: 0.85em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Passion One", cursive;
+}
+
+ul.inline li {
+  display: inline-block;
+  list-style-type: none;
+}
+
+ul.inline li:first-child {
+  display: inline-block;
+  list-style-type: none;
+  width: 30%;
+}
+
+ul.inline li:last-child {
+  display: inline-block;
+  list-style-type: none;
+  width: 65%;
+}
+
+.btn-group.form-control {
+  padding: 0px;
+}
+
+.center {
+  text-align: center;
+}
