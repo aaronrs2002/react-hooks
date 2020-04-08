@@ -3,18 +3,11 @@ import MovieData from "./MovieData";
 import AddMovie from "./AddMovie";
 import EditMovie from "./EditMovie";
 import DeleteMovie from "./DeleteMovie";
+import DisplayPanel from "./DisplayPanel";
 
 function App() {
-  let [count, setCount] = useState(0);
   let [movies, setMovies] = useState([...MovieData]);
   let [editSetting, setEdit] = useState("add");
-
-  if (Number(count) >= movies.length) {
-    count = 0;
-  }
-  if (Number(count) === -1) {
-    count = movies.length - 1;
-  }
 
   const clearForms = () => {
     [].forEach.call(
@@ -79,45 +72,7 @@ function App() {
   return (
     <div className="container">
       <div className="row mb-2">
-        <div className="col-md-6">
-          <div className="row p-4 no-gutters border rounded overflow-hidden  shadow-sm h-md-250 ">
-            {" "}
-            <h3 className="center">{count + 1 + " /" + movies.length}</h3>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="d-flex justify-content-center posterWrap">
-                  {" "}
-                  <img
-                    src={movies[count].img}
-                    className="img-thumbnail img-fluid"
-                  />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <h3 className="center">{movies[count].title} </h3>
-                <p className="card-text mb-auto ml-1">
-                  {movies[count].details}
-                </p>
-                <hr />
-                <i>Released: {movies[count].released}</i>{" "}
-              </div>
-            </div>
-            <div className="btn-group form-control" role="group">
-              <button
-                className="btn btn-secondary"
-                onClick={() => setCount(count - 1)}
-              >
-                Previous Movie
-              </button>
-              <button
-                className="btn btn-secondary"
-                onClick={() => setCount(count + 1)}
-              >
-                Next Movie
-              </button>
-            </div>
-          </div>
-        </div>
+        <DisplayPanel movies={movies} />
 
         <div className="col-md-6">
           <div className="row no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
