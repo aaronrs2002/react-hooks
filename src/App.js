@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import MovieData from "./MovieData";
+import AddMovie from "./AddMovie";
+import EditMovie from "./EditMovie";
+import DeleteMovie from "./DeleteMovie";
 
 function App() {
   let [count, setCount] = useState(0);
   let [movies, setMovies] = useState([...MovieData]);
+  let [editSetting, setEdit] = useState("add");
 
   if (Number(count) >= movies.length) {
     count = 0;
@@ -11,6 +15,16 @@ function App() {
   if (Number(count) === -1) {
     count = movies.length - 1;
   }
+
+  const clearForms = () => {
+    [].forEach.call(
+      document.querySelectorAll("input, textarea, select"),
+      function (e) {
+        e.value = "";
+        e.selectedIndex = 0;
+      }
+    );
+  };
 
   const addEntry = () => {
     const title = document.querySelector("input[name='title']").value;
@@ -22,85 +36,137 @@ function App() {
       ...movies,
       { title: title, released: released, img: img, details: details },
     ]);
-    document.querySelector("input[name='title']").value = "";
-    document.querySelector("input[name='released']").value = "";
-    document.querySelector("input[name='img']").value = "";
-    document.querySelector("textarea[name='details']").value = "";
+
+    clearForms();
   };
-  console.log("JSON.stringify(allMovies): " + JSON.stringify(movies));
+
+  const editEntry = () => {
+    const id = document.querySelector("input[name='id']").value;
+    const title = document.querySelector("input[name='title']").value;
+    const released = document.querySelector("input[name='released']").value;
+    const img = document.querySelector("input[name='img']").value;
+    const details = document.querySelector("textarea[name='details']").value;
+
+    for (let i = 0; i < movies.length; i++) {
+      if (id == movies[i].id) {
+        movies[i].title = title;
+        movies[i].released = released;
+        movies[i].img = img;
+        movies[i].details = details;
+      }
+    }
+    setMovies((movies) => [...movies]);
+    clearForms();
+  };
+
+  const deleteMovie = () => {
+    let whichMovie = document.getElementById("whichMovie").value;
+
+    let tempMovies = [];
+    for (let i = 0; i < movies.length; i++) {
+      console.log(
+        "whichMovie: " + whichMovie + " movies[i].id: " + movies[i].id
+      );
+      if (Number(whichMovie) !== Number(movies[i].id)) {
+        tempMovies.push(movies[i]);
+      }
+    }
+    console.log("JSON.stringify(tempMovies): " + JSON.stringify(tempMovies));
+    setMovies((movies) => [...tempMovies]);
+    clearForms();
+  };
+
   return (
-    <div className="row mb-2">
-      <div className="col-md-6">
-        <div className="row p-4 no-gutters border rounded overflow-hidden  shadow-sm h-md-250 ">
-          {" "}
-          <h3 className="center">{count + 1 + " /" + movies.length}</h3>
-          <div className="row">
-            <div className="col-md-3">
-              <div class="d-flex justify-content-center">
-                {" "}
-                <img src={movies[count].img} className="img-thumbnail" />
+    <div className="container">
+      <div className="row mb-2">
+        <div className="col-md-6">
+          <div className="row p-4 no-gutters border rounded overflow-hidden  shadow-sm h-md-250 ">
+            {" "}
+            <h3 className="center">{count + 1 + " /" + movies.length}</h3>
+            <div className="row">
+              <div className="col-md-6">
+                <div className="d-flex justify-content-center posterWrap">
+                  {" "}
+                  <img
+                    src={movies[count].img}
+                    className="img-thumbnail img-fluid"
+                  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <h3 className="center">{movies[count].title} </h3>
+                <p className="card-text mb-auto ml-1">
+                  {movies[count].details}
+                </p>
+                <hr />
+                <i>Released: {movies[count].released}</i>{" "}
               </div>
             </div>
-            <div className="col-md-9">
-              <h3 className="center">{movies[count].title} </h3>
-              <p className="card-text mb-auto ml-1">{movies[count].details}</p>
-              <hr />
-              <i>Released: {movies[count].released}</i>{" "}
-            </div>
-          </div>
-          <div className="btn-group form-control" role="group">
-            <button
-              className="btn btn-secondary"
-              onClick={() => setCount(count - 1)}
-            >
-              Previous Movie
-            </button>
-            <button
-              className="btn btn-secondary"
-              onClick={() => setCount(count + 1)}
-            >
-              Next Movie
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="col-md-6">
-        <div className="row no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
-          <div className="col p-4 d-flex flex-column position-static">
-            <h3 className="mb-0">Add Movie</h3>
-            <div className="form-group">
-              <input
-                type="text"
-                name="title"
-                className="form-control"
-                placeholder="Title"
-              />
-              <input
-                type="text"
-                name="released"
-                className="form-control"
-                placeholder="Released"
-              />
-              <input
-                type="text"
-                name="img"
-                className="form-control"
-                placeholder="Poster"
-              />
-              <textarea
-                name="details"
-                rows="5"
-                className="form-control"
-                placeholder="Details"
-              ></textarea>
+            <div className="btn-group form-control" role="group">
               <button
-                className="btn btn-block btn-secondary"
-                onClick={addEntry}
+                className="btn btn-secondary"
+                onClick={() => setCount(count - 1)}
               >
-                Add Movie
+                Previous Movie
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => setCount(count + 1)}
+              >
+                Next Movie
               </button>
             </div>
+          </div>
+        </div>
+
+        <div className="col-md-6">
+          <div className="row no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
+            <div
+              className="btn-group form-control"
+              role="group"
+              aria-label="Basic example"
+            >
+              <button
+                type="button"
+                className={
+                  editSetting === "add"
+                    ? "btn btn-secondary active"
+                    : "btn btn-secondary"
+                }
+                onClick={() => setEdit("add")}
+              >
+                Add
+              </button>
+              <button
+                type="button"
+                className={
+                  editSetting === "edit"
+                    ? "btn btn-secondary active"
+                    : "btn btn-secondary"
+                }
+                onClick={() => setEdit("edit")}
+              >
+                Update
+              </button>
+              <button
+                type="button"
+                className={
+                  editSetting === "delete"
+                    ? "btn btn-secondary active"
+                    : "btn btn-secondary"
+                }
+                onClick={() => setEdit("delete")}
+              >
+                Delete
+              </button>
+            </div>
+            {editSetting === "add" ? <AddMovie addEntry={addEntry} /> : null}
+            {editSetting === "edit" ? (
+              <EditMovie movies={movies} editEntry={editEntry} />
+            ) : null}
+            {editSetting === "delete" ? (
+              <DeleteMovie movies={movies} deleteMovie={deleteMovie} />
+            ) : null}
           </div>
         </div>
       </div>

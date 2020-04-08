@@ -32,7 +32,30 @@ ul.inline li:last-child {
 .btn-group.form-control {
   padding: 0px;
 }
+.btn-group,
+.form-group {
+  margin-bottom: 0rem;
+  padding-bottom: 0rem;
+}
 
 .center {
   text-align: center;
+}
+
+.btn,
+input[type="text"],
+textarea,
+.form-control {
+  border-radius: 0px;
+}
+
+.posterWrap {
+  max-width: 230px;
+  height: auto;
+  overflow: hidden;
+}
+
+.card-text {
+  max-height: 175px;
+  overflow: auto;
 }

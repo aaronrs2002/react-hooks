@@ -1,5 +1,6 @@
 const movieData = [
   {
+    id: 0,
     title: "Jaws",
     details:
       "When a killer shark unleashes chaos on a beach community, it's up to a local sheriff, a marine biologist, and an old seafarer to hunt the beast down.",
@@ -8,6 +9,7 @@ const movieData = [
       "https://m.media-amazon.com/images/M/MV5BMmVmODY1MzEtYTMwZC00MzNhLWFkNDMtZjAwM2EwODUxZTA5XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_UX182_CR0,0,182,268_AL_.jpg",
   },
   {
+    id: 1,
     title: "Men in Black",
     details:
       "A police officer joins a secret organization that polices and monitors extraterrestrial interactions on Earth.",
@@ -16,6 +18,7 @@ const movieData = [
       "https://m.media-amazon.com/images/M/MV5BOTlhYTVkMDktYzIyNC00NzlkLTlmN2ItOGEyMWQ4OTA2NDdmXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_UX182_CR0,0,182,268_AL_.jpg",
   },
   {
+    id: 2,
     title: "Footloose",
     details:
       "A city teenager moves to a small town where rock music and dancing have been banned, and his rebellious spirit shakes up the populace.",
