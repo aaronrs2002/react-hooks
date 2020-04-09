@@ -4,6 +4,7 @@ import AddMovie from "./AddMovie";
 import EditMovie from "./EditMovie";
 import DeleteMovie from "./DeleteMovie";
 import DisplayPanel from "./DisplayPanel";
+import EditSettings from "./EditSettings";
 
 function App() {
   let [movies, setMovies] = useState([...MovieData]);
@@ -76,45 +77,7 @@ function App() {
 
         <div className="col-md-6">
           <div className="row no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
-            <div
-              className="btn-group form-control"
-              role="group"
-              aria-label="Basic example"
-            >
-              <button
-                type="button"
-                className={
-                  editSetting === "add"
-                    ? "btn btn-secondary active"
-                    : "btn btn-secondary"
-                }
-                onClick={() => setEdit("add")}
-              >
-                Add
-              </button>
-              <button
-                type="button"
-                className={
-                  editSetting === "edit"
-                    ? "btn btn-secondary active"
-                    : "btn btn-secondary"
-                }
-                onClick={() => setEdit("edit")}
-              >
-                Update
-              </button>
-              <button
-                type="button"
-                className={
-                  editSetting === "delete"
-                    ? "btn btn-secondary active"
-                    : "btn btn-secondary"
-                }
-                onClick={() => setEdit("delete")}
-              >
-                Delete
-              </button>
-            </div>
+            <EditSettings setEdit={setEdit} editSetting={editSetting} />
             {editSetting === "add" ? <AddMovie addEntry={addEntry} /> : null}
             {editSetting === "edit" ? (
               <EditMovie movies={movies} editEntry={editEntry} />
